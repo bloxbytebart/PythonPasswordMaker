@@ -1,22 +1,35 @@
+import tkinter as q
 import random
 import string
 
-try:
-    length = int(input("Please enter the length of your desired password."))
+def generate_password():
+    length = int(l_entry.get())
+    charecters = string.ascii_letters + string.digits + string.punctuation
 
-except ValueError:
-    print("Please enter a valid number.")
-    raise SystemExit(1)
+    password = ""
+
+    for i in range(length):
+        password += random.choice(charecters)
+
+    resultlbl.config(text=password)
 
 
-if length in range(4):
-    print("Sorry, Passwords can only be of 4+ digits :(")
-    raise SystemExit(1)
+window = q.Tk()
+window.title("Password Generator")
+window.geometry("300x200")
 
-charecters = string.ascii_letters + string.digits + string.punctuation
-password = ""
+title = q.Label(window, text="Password Generator")
+title.pack()
 
-for i in range (length):
-    password += random.choice(charecters)
+greytext = q.Label(window, fg ="grey",text="Please enter the number of digits", width=50, height = 1)
+greytext.pack()
+l_entry = q.Entry(window)
+l_entry.pack()
 
-print("Generated Password:", password)
+generateBTN = q.Button(window, fg="blue", bg="white", text="generate", command=generate_password)
+generateBTN.pack()
+
+resultlbl = q.Label(window, text="")
+resultlbl.pack()
+
+window.mainloop()
